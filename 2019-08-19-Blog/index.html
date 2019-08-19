@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../ext-3.3.0-all/resources/css/ext-all.css">
+    <script src="../ext-3.3.0-all/adapter/ext/ext-base.js"></script>
+    <script src="../ext-3.3.0-all/ext-all.js"></script>
+    <script src="js/main.js"></script>
+
+</head>
+
+<script type="text/javascript">
+
+    Ext.onReady(function () {
+
+
+        var toolbar = new Ext.Toolbar({
+                width: 600,
+                height: 30,
+                items: [
+                    {
+                        text: 'Edit',
+                        menu: [
+                            {
+                                text: 'Reset',
+                                handler: reset
+                            }
+                        ]
+                    },
+                    '-',
+                    {
+                        text: 'Insert',
+                        menu: [
+                            {
+                                text: 'Table',
+                                handler: insertTableIntoEditorHtml
+                            }
+                        ]
+                    }
+                ]
+            }
+        );
+
+
+        var htmlEditor = new Ext.form.HtmlEditor({
+            id: 'htmlEditor',
+            width: 600,
+            height: 600
+        });
+
+        var submit = new Ext.Toolbar({
+            width: 600,
+            height: 30,
+            items: [
+                '->',
+                {
+                    id:'submit',
+                    text: 'Submit',
+                    handler: showUploadProgress
+                },
+                '  '
+            ]
+        });
+
+        var contextMenu = new Ext.menu.Menu(
+            {
+                id: 'menu',
+                items: [
+                    {
+                        text: 'Reset',
+                        handler: reset
+                    },
+                    {
+                        text: 'Table',
+                        handler: insertTableIntoEditorHtml
+                    }
+                ]
+            }
+        );
+
+        Ext.get(document).on('contextmenu', function (e) {
+            e.preventDefault();
+            contextMenu.showAt(e.getXY())
+        });
+
+
+        var Panel = new Ext.Panel({
+            title: 'Blog Editor',
+            renderTo: 'test',
+            width: 600,
+            items: [
+                toolbar,
+                htmlEditor,
+                submit
+            ]
+        });
+
+    })
+
+
+</script>
+
+<body>
+<div id="test" align="center"></div>
+</body>
+
+</html>
